@@ -10,3 +10,4 @@ This repository includes two jupyter notebooks I have made while learning to use
   - G = (V,E)
   - V = Facebook pages of chefs and restaurants.
   - E = If they have liked each other.
+It is a directed graph, because a chef page can like a restaurant page but the restaurant page may not like the chef page back and vice versa. However, for the sake of application towards another assignment, I will assume it is an undirected graph.

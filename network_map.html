@@ -1,0 +1,123 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "blue", "id": "George", "label": "George", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Kendrick", "label": "Kendrick", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "LKCSOM", "label": "LKCSOM", "shape": "dot", "size": 10, "value": 55}, {"color": "blue", "id": "Robert", "label": "Robert", "shape": "dot", "size": 10, "value": 5}, {"color": "blue", "id": "Nevada", "label": "Nevada", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "CoS", "label": "CoS", "shape": "dot", "size": 10, "value": 37}, {"color": "red", "id": "Shawn", "label": "Shawn", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Elaine", "label": "Elaine", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Mohan", "label": "Mohan", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Janna", "label": "Janna", "shape": "dot", "size": 10, "value": 4}, {"color": "blue", "id": "Carin", "label": "Carin", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Lowry", "label": "Lowry", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Wynne", "label": "Wynne", "shape": "dot", "size": 10, "value": 4}, {"color": "blue", "id": "Steven", "label": "Steven", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Bannerman", "label": "Bannerman", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Jeffries", "label": "Jeffries", "shape": "dot", "size": 10, "value": 6}, {"color": "blue", "id": "Ashwin", "label": "Ashwin", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "William", "label": "William", "shape": "dot", "size": 10, "value": 4}, {"color": "blue", "id": "Caldwell", "label": "Caldwell", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Adriana", "label": "Adriana", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Terri", "label": "Terri", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "James", "label": "James", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Pauline", "label": "Pauline", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Jarvis", "label": "Jarvis", "shape": "dot", "size": 10, "value": 4}, {"color": "blue", "id": "Christopher", "label": "Christopher", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Judith", "label": "Judith", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Gussie", "label": "Gussie", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Michael", "label": "Michael", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Anna", "label": "Anna", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Amelia", "label": "Amelia", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Hawking", "label": "Hawking", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Donovan", "label": "Donovan", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Fowler", "label": "Fowler", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Milton", "label": "Milton", "shape": "dot", "size": 10, "value": 5}, {"color": "blue", "id": "Pond", "label": "Pond", "shape": "dot", "size": 10, "value": 4}, {"color": "blue", "id": "Jessica", "label": "Jessica", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Meyer", "label": "Meyer", "shape": "dot", "size": 10, "value": 6}, {"color": "red", "id": "Katlyn", "label": "Katlyn", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Monday", "label": "Monday", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Cindy", "label": "Cindy", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Stephanie", "label": "Stephanie", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Kelli", "label": "Kelli", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Charisse", "label": "Charisse", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Ann", "label": "Ann", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Kathy", "label": "Kathy", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Woodward", "label": "Woodward", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Ryker", "label": "Ryker", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Emma", "label": "Emma", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Field", "label": "Field", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Heather", "label": "Heather", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Robertson", "label": "Robertson", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Sanders", "label": "Sanders", "shape": "dot", "size": 10, "value": 5}, {"color": "red", "id": "Lela", "label": "Lela", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Hart", "label": "Hart", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Tanya", "label": "Tanya", "shape": "dot", "size": 10, "value": 6}, {"color": "blue", "id": "Broadbent", "label": "Broadbent", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Ingram", "label": "Ingram", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Jeannie", "label": "Jeannie", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Harmonie", "label": "Harmonie", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Omar", "label": "Omar", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Rivett", "label": "Rivett", "shape": "dot", "size": 10, "value": 5}, {"color": "red", "id": "Millhouse", "label": "Millhouse", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Leach", "label": "Leach", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Mathers", "label": "Mathers", "shape": "dot", "size": 10, "value": 4}, {"color": "blue", "id": "Caroline", "label": "Caroline", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Hudson", "label": "Hudson", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Straight", "label": "Straight", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Samuel", "label": "Samuel", "shape": "dot", "size": 10, "value": 4}, {"color": "blue", "id": "Blondie", "label": "Blondie", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Cox", "label": "Cox", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Irvine", "label": "Irvine", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Basso", "label": "Basso", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Stephens", "label": "Stephens", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Lorri", "label": "Lorri", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Breann", "label": "Breann", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Edith", "label": "Edith", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Marge", "label": "Marge", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Reba", "label": "Reba", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Mabella", "label": "Mabella", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Wei Bin", "label": "Wei Bin", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Lynwood", "label": "Lynwood", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Beng Wah", "label": "Beng Wah", "shape": "dot", "size": 10, "value": 4}, {"color": "red", "id": "Irvin", "label": "Irvin", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Ted", "label": "Ted", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Rina", "label": "Rina", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Cookson", "label": "Cookson", "shape": "dot", "size": 10, "value": 3}, {"color": "red", "id": "Foster", "label": "Foster", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Bindy", "label": "Bindy", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Jing Han", "label": "Jing Han", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Felicia", "label": "Felicia", "shape": "dot", "size": 10, "value": 2}, {"color": "red", "id": "Simmons", "label": "Simmons", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Dudley", "label": "Dudley", "shape": "dot", "size": 10, "value": 3}, {"color": "blue", "id": "Carolyn", "label": "Carolyn", "shape": "dot", "size": 10, "value": 2}, {"color": "blue", "id": "Bettye", "label": "Bettye", "shape": "dot", "size": 10, "value": 2}]);
+        edges = new vis.DataSet([{"from": "George", "to": "Kendrick", "weight": 1}, {"from": "George", "to": "LKCSOM", "weight": 1}, {"from": "Kendrick", "to": "Robert", "weight": 1}, {"from": "Kendrick", "to": "Nevada", "weight": 1}, {"from": "Kendrick", "to": "CoS", "weight": 1}, {"from": "Shawn", "to": "Elaine", "weight": 1}, {"from": "Shawn", "to": "Mohan", "weight": 1}, {"from": "Shawn", "to": "CoS", "weight": 1}, {"from": "Elaine", "to": "Janna", "weight": 1}, {"from": "Elaine", "to": "LKCSOM", "weight": 1}, {"from": "Robert", "to": "Carin", "weight": 1}, {"from": "Robert", "to": "Lowry", "weight": 1}, {"from": "Robert", "to": "Wynne", "weight": 1}, {"from": "Robert", "to": "LKCSOM", "weight": 1}, {"from": "Steven", "to": "Bannerman", "weight": 1}, {"from": "Steven", "to": "Jeffries", "weight": 1}, {"from": "Steven", "to": "LKCSOM", "weight": 1}, {"from": "Bannerman", "to": "Ashwin", "weight": 1}, {"from": "Bannerman", "to": "Jeffries", "weight": 1}, {"from": "Bannerman", "to": "LKCSOM", "weight": 1}, {"from": "William", "to": "Nevada", "weight": 1}, {"from": "William", "to": "Caldwell", "weight": 1}, {"from": "William", "to": "Adriana", "weight": 1}, {"from": "William", "to": "LKCSOM", "weight": 1}, {"from": "Nevada", "to": "Terri", "weight": 1}, {"from": "Nevada", "to": "LKCSOM", "weight": 1}, {"from": "James", "to": "Pauline", "weight": 1}, {"from": "James", "to": "Jarvis", "weight": 1}, {"from": "James", "to": "CoS", "weight": 1}, {"from": "Pauline", "to": "Adriana", "weight": 1}, {"from": "Pauline", "to": "LKCSOM", "weight": 1}, {"from": "Christopher", "to": "Christopher", "weight": 1}, {"from": "Christopher", "to": "Judith", "weight": 1}, {"from": "Christopher", "to": "LKCSOM", "weight": 1}, {"from": "Jarvis", "to": "Jeffries", "weight": 1}, {"from": "Jarvis", "to": "Gussie", "weight": 1}, {"from": "Jarvis", "to": "LKCSOM", "weight": 1}, {"from": "Michael", "to": "Anna", "weight": 1}, {"from": "Michael", "to": "Amelia", "weight": 1}, {"from": "Michael", "to": "LKCSOM", "weight": 1}, {"from": "Anna", "to": "Hawking", "weight": 1}, {"from": "Anna", "to": "LKCSOM", "weight": 1}, {"from": "Donovan", "to": "Fowler", "weight": 1}, {"from": "Donovan", "to": "Terri", "weight": 1}, {"from": "Donovan", "to": "LKCSOM", "weight": 1}, {"from": "Fowler", "to": "Milton", "weight": 1}, {"from": "Fowler", "to": "Pond", "weight": 1}, {"from": "Fowler", "to": "LKCSOM", "weight": 1}, {"from": "Jessica", "to": "Meyer", "weight": 1}, {"from": "Jessica", "to": "LKCSOM", "weight": 1}, {"from": "Meyer", "to": "Katlyn", "weight": 1}, {"from": "Meyer", "to": "Milton", "weight": 1}, {"from": "Meyer", "to": "Monday", "weight": 1}, {"from": "Meyer", "to": "Cindy", "weight": 1}, {"from": "Meyer", "to": "CoS", "weight": 1}, {"from": "Stephanie", "to": "Kelli", "weight": 1}, {"from": "Stephanie", "to": "LKCSOM", "weight": 1}, {"from": "Kelli", "to": "Charisse", "weight": 1}, {"from": "Kelli", "to": "LKCSOM", "weight": 1}, {"from": "Ann", "to": "Milton", "weight": 1}, {"from": "Ann", "to": "Kathy", "weight": 1}, {"from": "Ann", "to": "Woodward", "weight": 1}, {"from": "Ann", "to": "LKCSOM", "weight": 1}, {"from": "Milton", "to": "Ryker", "weight": 1}, {"from": "Milton", "to": "CoS", "weight": 1}, {"from": "Emma", "to": "Field", "weight": 1}, {"from": "Emma", "to": "LKCSOM", "weight": 1}, {"from": "Field", "to": "Jeffries", "weight": 1}, {"from": "Field", "to": "LKCSOM", "weight": 1}, {"from": "Heather", "to": "Robertson", "weight": 1}, {"from": "Heather", "to": "Hawking", "weight": 1}, {"from": "Heather", "to": "LKCSOM", "weight": 1}, {"from": "Robertson", "to": "Sanders", "weight": 1}, {"from": "Robertson", "to": "CoS", "weight": 1}, {"from": "Hawking", "to": "CoS", "weight": 1}, {"from": "Charisse", "to": "Lela", "weight": 1}, {"from": "Charisse", "to": "LKCSOM", "weight": 1}, {"from": "Adriana", "to": "Hart", "weight": 1}, {"from": "Adriana", "to": "CoS", "weight": 1}, {"from": "Tanya", "to": "Broadbent", "weight": 1}, {"from": "Tanya", "to": "Ingram", "weight": 1}, {"from": "Tanya", "to": "Jeannie", "weight": 1}, {"from": "Tanya", "to": "Harmonie", "weight": 1}, {"from": "Tanya", "to": "Omar", "weight": 1}, {"from": "Tanya", "to": "CoS", "weight": 1}, {"from": "Broadbent", "to": "Sanders", "weight": 1}, {"from": "Broadbent", "to": "LKCSOM", "weight": 1}, {"from": "Kathy", "to": "Rivett", "weight": 1}, {"from": "Kathy", "to": "CoS", "weight": 1}, {"from": "Sanders", "to": "Rivett", "weight": 1}, {"from": "Sanders", "to": "Millhouse", "weight": 1}, {"from": "Sanders", "to": "LKCSOM", "weight": 1}, {"from": "Rivett", "to": "Leach", "weight": 1}, {"from": "Rivett", "to": "Mathers", "weight": 1}, {"from": "Rivett", "to": "LKCSOM", "weight": 1}, {"from": "Katlyn", "to": "Caroline", "weight": 1}, {"from": "Katlyn", "to": "Janna", "weight": 1}, {"from": "Katlyn", "to": "CoS", "weight": 1}, {"from": "Ingram", "to": "Hudson", "weight": 1}, {"from": "Ingram", "to": "LKCSOM", "weight": 1}, {"from": "Straight", "to": "Leach", "weight": 1}, {"from": "Straight", "to": "CoS", "weight": 1}, {"from": "Leach", "to": "CoS", "weight": 1}, {"from": "Caldwell", "to": "Samuel", "weight": 1}, {"from": "Caldwell", "to": "Blondie", "weight": 1}, {"from": "Caldwell", "to": "LKCSOM", "weight": 1}, {"from": "Cox", "to": "Hart", "weight": 1}, {"from": "Cox", "to": "CoS", "weight": 1}, {"from": "Hart", "to": "CoS", "weight": 1}, {"from": "Hudson", "to": "Irvine", "weight": 1}, {"from": "Hudson", "to": "CoS", "weight": 1}, {"from": "Basso", "to": "Stephens", "weight": 1}, {"from": "Basso", "to": "LKCSOM", "weight": 1}, {"from": "Stephens", "to": "Caroline", "weight": 1}, {"from": "Stephens", "to": "LKCSOM", "weight": 1}, {"from": "Millhouse", "to": "CoS", "weight": 1}, {"from": "Lorri", "to": "Mohan", "weight": 1}, {"from": "Lorri", "to": "LKCSOM", "weight": 1}, {"from": "Mohan", "to": "LKCSOM", "weight": 1}, {"from": "Carin", "to": "LKCSOM", "weight": 1}, {"from": "Judith", "to": "LKCSOM", "weight": 1}, {"from": "Janna", "to": "Lela", "weight": 1}, {"from": "Janna", "to": "LKCSOM", "weight": 1}, {"from": "Terri", "to": "CoS", "weight": 1}, {"from": "Caroline", "to": "Breann", "weight": 1}, {"from": "Caroline", "to": "LKCSOM", "weight": 1}, {"from": "Breann", "to": "Samuel", "weight": 1}, {"from": "Breann", "to": "CoS", "weight": 1}, {"from": "Edith", "to": "Jeffries", "weight": 1}, {"from": "Edith", "to": "CoS", "weight": 1}, {"from": "Jeffries", "to": "CoS", "weight": 1}, {"from": "Jeannie", "to": "Marge", "weight": 1}, {"from": "Jeannie", "to": "CoS", "weight": 1}, {"from": "Marge", "to": "Reba", "weight": 1}, {"from": "Marge", "to": "LKCSOM", "weight": 1}, {"from": "Ashwin", "to": "LKCSOM", "weight": 1}, {"from": "Samuel", "to": "Mabella", "weight": 1}, {"from": "Samuel", "to": "CoS", "weight": 1}, {"from": "Wei Bin", "to": "Mathers", "weight": 1}, {"from": "Wei Bin", "to": "LKCSOM", "weight": 1}, {"from": "Mathers", "to": "Lynwood", "weight": 1}, {"from": "Mathers", "to": "CoS", "weight": 1}, {"from": "Beng Wah", "to": "Irvin", "weight": 1}, {"from": "Beng Wah", "to": "Wynne", "weight": 1}, {"from": "Beng Wah", "to": "Ted", "weight": 1}, {"from": "Beng Wah", "to": "LKCSOM", "weight": 1}, {"from": "Irvin", "to": "Woodward", "weight": 1}, {"from": "Irvin", "to": "CoS", "weight": 1}, {"from": "Rina", "to": "Monday", "weight": 1}, {"from": "Rina", "to": "LKCSOM", "weight": 1}, {"from": "Monday", "to": "Cookson", "weight": 1}, {"from": "Monday", "to": "CoS", "weight": 1}, {"from": "Amelia", "to": "Foster", "weight": 1}, {"from": "Amelia", "to": "Bindy", "weight": 1}, {"from": "Amelia", "to": "LKCSOM", "weight": 1}, {"from": "Jing Han", "to": "Cookson", "weight": 1}, {"from": "Jing Han", "to": "LKCSOM", "weight": 1}, {"from": "Cookson", "to": "CoS", "weight": 1}, {"from": "Felicia", "to": "Pond", "weight": 1}, {"from": "Felicia", "to": "CoS", "weight": 1}, {"from": "Pond", "to": "Simmons", "weight": 1}, {"from": "Pond", "to": "LKCSOM", "weight": 1}, {"from": "Lynwood", "to": "LKCSOM", "weight": 1}, {"from": "Foster", "to": "CoS", "weight": 1}, {"from": "Wynne", "to": "Dudley", "weight": 1}, {"from": "Wynne", "to": "CoS", "weight": 1}, {"from": "Carolyn", "to": "Reba", "weight": 1}, {"from": "Carolyn", "to": "LKCSOM", "weight": 1}, {"from": "Reba", "to": "LKCSOM", "weight": 1}, {"from": "Lela", "to": "CoS", "weight": 1}, {"from": "Lowry", "to": "LKCSOM", "weight": 1}, {"from": "Bindy", "to": "LKCSOM", "weight": 1}, {"from": "Bettye", "to": "Dudley", "weight": 1}, {"from": "Bettye", "to": "LKCSOM", "weight": 1}, {"from": "Dudley", "to": "LKCSOM", "weight": 1}, {"from": "Mabella", "to": "LKCSOM", "weight": 1}, {"from": "Blondie", "to": "LKCSOM", "weight": 1}, {"from": "Woodward", "to": "LKCSOM", "weight": 1}, {"from": "Ted", "to": "LKCSOM", "weight": 1}, {"from": "Irvine", "to": "LKCSOM", "weight": 1}, {"from": "Harmonie", "to": "CoS", "weight": 1}, {"from": "Cindy", "to": "CoS", "weight": 1}, {"from": "Simmons", "to": "CoS", "weight": 1}, {"from": "Omar", "to": "CoS", "weight": 1}, {"from": "Ryker", "to": "CoS", "weight": 1}, {"from": "Gussie", "to": "CoS", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

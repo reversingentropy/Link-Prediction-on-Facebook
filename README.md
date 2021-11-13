@@ -1,4 +1,4 @@
-# Machine_Learning_With_Graphs
+# Machine Learning With Graphs
 
 This repository includes two jupyter notebooks I have made while learning to use the package NetworkX and applying machine learning to a Graph.
 
